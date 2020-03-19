@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TicketingSystem
 {
-    class Ticket
+    class ticket
     {
         //creating getters and setters for the base ticket class
         //should always use getters and setters

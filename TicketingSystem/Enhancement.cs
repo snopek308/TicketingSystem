@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TicketingSystem
 {
-    class Enhancement :Ticket
+    class Enhancement :ticket
     {
         public string software { get; set; }
         public double cost { get; set; }

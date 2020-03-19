@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TicketingSystem
 {
-    class BugDefect : Ticket
+    class BugDefect : ticket
     {
         public string severity { get; set; }
     }

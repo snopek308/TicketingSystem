@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace TicketingSystem
 {
-    class Task : ticket
+    class LinqData
     {
-        public string projectName { get; set; }
-        public DateTime dueDate { get; set; }
+        public void dataSearch()
+            {
+
+
+        }
+
+
+
     }
 }

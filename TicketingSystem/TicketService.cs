@@ -10,7 +10,7 @@ namespace TicketingSystem
     class TicketService
     {
         private string response;
-        string file = "Tickets.csv";
+        //string file = "Tickets.csv";
         string[] ticketFiles = new string[] { "", "TaskTickets", "EnhancementTickets", "BugTickets", "Tickets" };
 
         public void TicketEntry()
@@ -23,13 +23,14 @@ namespace TicketingSystem
             {
                 Console.WriteLine("1) Read data from file.");
                 Console.WriteLine("2) Create file from data.");
+                Console.WriteLine("3) Search file from data");
                 Console.WriteLine("Enter any other key to exit.");
                 // input response
                 choice = Console.ReadLine();
 
                 if (choice == "1")
                 {
-                    ReadDataFromFile();
+                        ReadDataFromFile();  
                 }
                 else if (choice == "2")
                 {
@@ -118,7 +119,7 @@ namespace TicketingSystem
                     }
                     else if (type == "4")
                     {
-                        Ticket ticket = new Ticket();
+                        ticket ticket = new ticket();
                         ticket.ticketID = baseQuestions[0];
                         ticket.summary = baseQuestions[1];
                         ticket.status = baseQuestions[2];
@@ -140,8 +141,51 @@ namespace TicketingSystem
                     }
                     
                 }
+                else if (choice == "3")
+                {
+                    Console.WriteLine("Please choose how to search tickets:");
+                    Console.WriteLine("1) Status");
+                    Console.WriteLine("2) Priority");
+                    Console.WriteLine("3) Submitter");
+                    string response = Console.ReadLine();
 
-            } while (choice == "1" || choice == "2"); // do while loop for option two, continue adding records
+                    switch(response)
+                    {
+                        case "1":
+                            {
+                                //var res = from t in ticketFiles
+                                //          where t == response
+                                //          select t;
+                                //Console.WriteLine(res);
+                                ticket ticket = new ticket();
+                                Console.WriteLine("Which Status are you looking for?");
+                                string userResponse = Console.ReadLine();
+
+                                    var query = ticket.ticketFile.Where(s => s.status.Contains(userResponse));
+                                    Console.WriteLine(query);
+                                
+                                //var res = ticketFiles.Where(status => status.Contains(userResponse));
+                                //Console.WriteLine(res);
+                                break;
+                            }
+                        case "2":
+                            {
+
+                                break;
+                            }
+                        case "3":
+                            {
+                                break;
+                            }
+                        default:
+                            {
+                                break;
+                            }
+                    }
+
+                }
+
+            } while (choice == "1" || choice == "2" || choice == "3"); // do while loop for option two, continue adding records
         }
         
 
