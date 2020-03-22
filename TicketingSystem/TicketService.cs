@@ -10,7 +10,7 @@ namespace TicketingSystem
     class TicketService
     {
         private string response;
-        //string file = "Tickets.csv";
+        string file = "Tickets.csv";
         string[] ticketFiles = new string[] { "", "TaskTickets", "EnhancementTickets", "BugTickets", "Tickets" };
 
         public void TicketEntry()
@@ -18,6 +18,8 @@ namespace TicketingSystem
             string choice;
             string type;
             List<string> baseQuestions;
+
+            CSVTicketParser ticketParser = new CSVTicketParser();
 
             do
             {
@@ -119,7 +121,7 @@ namespace TicketingSystem
                     }
                     else if (type == "4")
                     {
-                        ticket ticket = new ticket();
+                        Ticket ticket = new Ticket();
                         ticket.ticketID = baseQuestions[0];
                         ticket.summary = baseQuestions[1];
                         ticket.status = baseQuestions[2];
@@ -132,6 +134,7 @@ namespace TicketingSystem
 
                         sw.WriteLine("{0},{1},{2},{3},{4},{5},{6}",
                         ticket.ticketID, ticket.summary, ticket.status, ticket.priority, ticket.submitter, ticket.assigned, ticket.watching);
+
                         sw.Close();
                     }
 
@@ -143,42 +146,274 @@ namespace TicketingSystem
                 }
                 else if (choice == "3")
                 {
-                    Console.WriteLine("Please choose how to search tickets:");
-                    Console.WriteLine("1) Status");
-                    Console.WriteLine("2) Priority");
-                    Console.WriteLine("3) Submitter");
-                    string response = Console.ReadLine();
+                    Console.WriteLine("Please choose a type of ticket to search: ");
+                    Console.WriteLine("1) Bug Defects");
+                    Console.WriteLine("2) Enhancements");
+                    Console.WriteLine("3) Tasks");
+                    Console.WriteLine("4) Other");
+                    string userChoice = Console.ReadLine();
 
-                    switch(response)
+                    switch(userChoice)
                     {
                         case "1":
                             {
-                                //var res = from t in ticketFiles
-                                //          where t == response
-                                //          select t;
-                                //Console.WriteLine(res);
-                                ticket ticket = new ticket();
-                                Console.WriteLine("Which Status are you looking for?");
-                                string userResponse = Console.ReadLine();
 
-                                    var query = ticket.ticketFile.Where(s => s.status.Contains(userResponse));
-                                    Console.WriteLine(query);
-                                
-                                //var res = ticketFiles.Where(status => status.Contains(userResponse));
-                                //Console.WriteLine(res);
+                                Console.WriteLine("Please choose how to search tickets:");
+                                Console.WriteLine("1) Status");
+                                Console.WriteLine("2) Priority");
+                                Console.WriteLine("3) Submitter");
+                                string response = Console.ReadLine();
+
+                                switch (response)
+                                {
+                                    case "1":
+                                        {
+                                            Console.WriteLine("Please choose you status: ");
+                                            Console.WriteLine("1) Low");
+                                            Console.WriteLine("2) Medium");
+                                            Console.WriteLine("3) High");
+                                            string statusRes = Console.ReadLine();
+
+                                            string fileBugDefect = "BugTickets.csv";
+                                            var tickets = ticketParser.BDStatusLow(fileBugDefect, statusRes);
+                                            foreach (var ticket in tickets)
+                                            {
+                                                Console.WriteLine(ticket.ticketID + " " + ticket.status);
+                                            }
+                                            break;
+                                        }
+                                    case "2":
+                                        {
+                                            Console.WriteLine("Please choose you status: ");
+                                            Console.WriteLine("1) Low");
+                                            Console.WriteLine("2) Medium");
+                                            Console.WriteLine("3) High");
+                                            string statusRes = Console.ReadLine();
+
+                                            string fileBugDefect = "BugTickets.csv";
+                                            var tickets = ticketParser.BDPriority(fileBugDefect, statusRes);
+                                            foreach (var ticket in tickets)
+                                            {
+                                                Console.WriteLine(ticket.ticketID + " " + ticket.status);
+                                            }
+                                            break;
+                                        }
+                                    case "3":
+                                        {
+                                            Console.WriteLine("Please choose you status: ");
+                                            Console.WriteLine("1) Low");
+                                            Console.WriteLine("2) Medium");
+                                            Console.WriteLine("3) High");
+                                            string statusRes = Console.ReadLine();
+
+                                            string fileBugDefect = "BugTickets.csv";
+                                            var tickets = ticketParser.BDSubmiter(fileBugDefect, statusRes);
+                                            foreach (var ticket in tickets)
+                                            {
+                                                Console.WriteLine(ticket.ticketID + " " + ticket.status);
+                                            }
+                                            break;
+                                        }
+                                    default:
+                                        {
+                                            break;
+                                        }
+                                }
                                 break;
                             }
                         case "2":
                             {
+                                Console.WriteLine("Please choose how to search tickets:");
+                                Console.WriteLine("1) Status");
+                                Console.WriteLine("2) Priority");
+                                Console.WriteLine("3) Submitter");
+                                string response = Console.ReadLine();
+
+                                switch(response)
+                                {
+                                    case "1":
+                                        {
+                                            Console.WriteLine("Please choose you status: ");
+                                            Console.WriteLine("1) Low");
+                                            Console.WriteLine("2) Medium");
+                                            Console.WriteLine("3) High");
+                                            string statusRes = Console.ReadLine();
+
+                                            string fileEnhancement = "EnhancementTickets.csv";
+                                            var tickets = ticketParser.EHStatus(fileEnhancement, statusRes);
+                                            foreach (var ticket in tickets)
+                                            {
+                                                Console.WriteLine(ticket.ticketID + " " + ticket.status);
+                                            }
+                                            break;
+                                        }
+                                    case "2":
+                                        {
+                                            Console.WriteLine("Please choose you status: ");
+                                            Console.WriteLine("1) Low");
+                                            Console.WriteLine("2) Medium");
+                                            Console.WriteLine("3) High");
+                                            string statusRes = Console.ReadLine();
+
+                                            string fileEnhancement = "EnhancementTickets.csv";
+                                            var tickets = ticketParser.EHPriority(fileEnhancement, statusRes);
+                                            foreach (var ticket in tickets)
+                                            {
+                                                Console.WriteLine(ticket.ticketID + " " + ticket.status);
+                                            }
+                                            break;
+                                        }
+                                    case "3":
+                                        {
+                                            Console.WriteLine("Please choose you status: ");
+                                            Console.WriteLine("1) Low");
+                                            Console.WriteLine("2) Medium");
+                                            Console.WriteLine("3) High");
+                                            string statusRes = Console.ReadLine();
+
+                                            string fileEnhancement = "EnhancementTickets.csv";
+                                            var tickets = ticketParser.EHSubmitter(fileEnhancement, statusRes);
+                                            foreach (var ticket in tickets)
+                                            {
+                                                Console.WriteLine(ticket.ticketID + " " + ticket.status);
+                                            }
+                                            break;
+                                        }
+                                    default:
+                                        {
+                                            break;
+                                        }
+                                }
+
 
                                 break;
                             }
                         case "3":
                             {
+                                Console.WriteLine("Please choose how to search tickets:");
+                                Console.WriteLine("1) Status");
+                                Console.WriteLine("2) Priority");
+                                Console.WriteLine("3) Submitter");
+                                string response = Console.ReadLine();
+
+                                switch (response)
+                                {
+                                    case "1":
+                                        {
+                                            Console.WriteLine("Please choose you status: ");
+                                            Console.WriteLine("1) Low");
+                                            Console.WriteLine("2) Medium");
+                                            Console.WriteLine("3) High");
+                                            string statusRes = Console.ReadLine();
+
+                                            string fileTask = "TaskTickets.csv";
+                                            var tickets = ticketParser.TaskStatus(fileTask, statusRes);
+                                            foreach (var ticket in tickets)
+                                            {
+                                                Console.WriteLine(ticket.ticketID + " " + ticket.status);
+                                            }
+                                            break;
+                                        }
+                                    case "2":
+                                        {
+                                            Console.WriteLine("Please choose you status: ");
+                                            Console.WriteLine("1) Low");
+                                            Console.WriteLine("2) Medium");
+                                            Console.WriteLine("3) High");
+                                            string statusRes = Console.ReadLine();
+
+                                            string fileTask = "TaskTickets.csv";
+                                            var tickets = ticketParser.TaskPriority(fileTask, statusRes);
+                                            foreach (var ticket in tickets)
+                                            {
+                                                Console.WriteLine(ticket.ticketID + " " + ticket.status);
+                                            }
+                                            break;
+                                        }
+                                    case "3":
+                                        {
+                                            Console.WriteLine("Please choose you status: ");
+                                            Console.WriteLine("1) Low");
+                                            Console.WriteLine("2) Medium");
+                                            Console.WriteLine("3) High");
+                                            string statusRes = Console.ReadLine();
+
+                                            string fileTask = "TaskTickets.csv";
+                                            var tickets = ticketParser.TaskSubmitter(fileTask, statusRes);
+                                            foreach (var ticket in tickets)
+                                            {
+                                                Console.WriteLine(ticket.ticketID + " " + ticket.status);
+                                            }
+                                            break;
+                                        }
+                                    default:
+                                        {
+                                            break;
+                                        }
+                                }
+
+
                                 break;
                             }
-                        default:
+                        case "4":
                             {
+                                Console.WriteLine("Please choose how to search tickets:");
+                                Console.WriteLine("1) Status");
+                                Console.WriteLine("2) Priority");
+                                Console.WriteLine("3) Submitter");
+                                string response = Console.ReadLine();
+
+                                switch (response)
+                                {
+                                    case "1":
+                                        {
+                                            Console.WriteLine("Please choose you status: ");
+                                            Console.WriteLine("1) Low");
+                                            Console.WriteLine("2) Medium");
+                                            Console.WriteLine("3) High");
+                                            string statusRes = Console.ReadLine();
+
+                                            var tickets = ticketParser.TicketStatus(file, statusRes);
+                                            foreach (var ticket in tickets)
+                                            {
+                                                Console.WriteLine(ticket.ticketID + " " + ticket.status);
+                                            }
+                                            break;
+                                        }
+                                    case "2":
+                                        {
+                                            Console.WriteLine("Please choose you status: ");
+                                            Console.WriteLine("1) Low");
+                                            Console.WriteLine("2) Medium");
+                                            Console.WriteLine("3) High");
+                                            string statusRes = Console.ReadLine();
+
+                                            var tickets = ticketParser.TicketPriority(file, statusRes);
+                                            foreach (var ticket in tickets)
+                                            {
+                                                Console.WriteLine(ticket.ticketID + " " + ticket.status);
+                                            }
+                                            break;
+                                        }
+                                    case "3":
+                                        {
+                                            Console.WriteLine("Please type in name of submitter: ");
+                                            string statusRes = Console.ReadLine();
+
+                                            var tickets = ticketParser.TicketSubmitter(file, statusRes);
+                                            foreach (var ticket in tickets)
+                                            {
+                                                Console.WriteLine(ticket.ticketID + " " + ticket.status);
+                                            }
+                                            break;
+                                        }
+                                    default:
+                                        {
+                                            break;
+                                        }
+                                }
+
+
                                 break;
                             }
                     }
@@ -271,6 +506,8 @@ namespace TicketingSystem
             {
                 Console.WriteLine("File does not exist");
             }
+
+            
         }
 
     }

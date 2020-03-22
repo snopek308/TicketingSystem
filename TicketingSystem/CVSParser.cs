@@ -6,15 +6,7 @@ using System.Threading.Tasks;
 
 namespace TicketingSystem
 {
-    class LinqData
+    class CVSParser
     {
-        public void dataSearch()
-            {
-
-
-        }
-
-
-
     }
 }
